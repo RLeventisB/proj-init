@@ -1,0 +1,32 @@
+{% extends "index.html" %}
+
+
+
+{% block titulopagina %}Home{% endblock %}{### Titulo de la pagina  ##}
+
+{% block content %}
+    <h1>Bienvenido a la página de inicio</h1>
+    <p>Esta es la página principal de nuestro sitio web.</p>
+{% endblock %}
+
+{%block 3noticias%}
+    <class = "noticias">
+        <h2>Noticias Recientes</h2>
+        <ul>
+            {%for noticia in noticias|slice:":3" %}{# Se supone que muestra las 3 noticias, lo terminare cuando este las noticias#}
+                <li>
+                    <h3>{{noticia.titulo}}</h3>
+                    <p>{{noticia.autor}}</p>
+                    <p>{{noticia.fecha_publicacion}}</p>
+                    <img src="{{noticia.imagen.url}}" alt="Imagen de la noticia" width="200">
+                    <p>{{noticia.sinpsis}}</p>
+            {%endfor%}
+        </ul>
+{%endblock %}
+
+{%block footer%}{#Aun falta mejorar#}
+    <footer style="text-align: left; padding: 5px; background-color: #ff84c1ff; color: white; position: fixed; bottom: 0; width: 100%;">
+        <p>&copy; 2024 Mi Sitio Web. Todos los derechos reservados  Contacto:oye, no nada.</p>
+        <a href="https://youtu.be/dQw4w9WgXcQ?si=a7s7T71rvPouHHA7" style="color: white; text-decoration: none;">Conviertete en un creador haciendo click</a>
+    </footer>
+{%endblock%}
