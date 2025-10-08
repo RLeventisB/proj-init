@@ -24,5 +24,5 @@ urlpatterns = [
     path('', include('Busqueda.urls')),
     path('', include('CreadorPerfil.urls')),
     path('', include('GestionPerfil.urls')),
-    path('', include('GestionPosts.urls')),
+    path('', include('GestionPosts.urls'))
 ]
