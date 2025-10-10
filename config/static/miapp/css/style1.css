@@ -2,9 +2,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(to right, #ff84c1ff, #ee7eb6ff);
+    background: linear-gradient(to right, #f2cfda, #f2cfda);
     padding: 10px 20px;
-    color: white;
+    color: #68417f;
 }
 
 .logo img {
@@ -12,7 +12,7 @@
 }
 
 .nav-links a {
-    color: white;
+    color: #68417f;
     text-decoration: none;
     margin-left: 20px;
     font-weight: bold;
@@ -28,7 +28,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background: linear-gradient(to right, #c745baff, #af00aaff);
+    background: linear-gradient(to right, #c66aab, #c66aab);
     font-family: 'Segoe UI', sans-serif;
     color: white;
 }
