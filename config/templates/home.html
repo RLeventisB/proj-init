@@ -1,32 +1,37 @@
+
+
 {% extends "index.html" %}
-
-
-
 {% block titulopagina %}Home{% endblock %}{### Titulo de la pagina  ##}
 
-{% block content %}
-    <h1>Bienvenido a la página de inicio</h1>
-    <p>Esta es la página principal de nuestro sitio web.</p>
-{% endblock %}
-
-{%block 3noticias%}
-    <class = "noticias">
-        <h2>Noticias Recientes</h2>
-        <ul>
-            {%for noticia in noticias|slice:":3" %}{# Se supone que muestra las 3 noticias, lo terminare cuando este las noticias#}
-                <li>
-                    <h3>{{noticia.titulo}}</h3>
-                    <p>{{noticia.autor}}</p>
-                    <p>{{noticia.fecha_publicacion}}</p>
-                    <img src="{{noticia.imagen.url}}" alt="Imagen de la noticia" width="200">
-                    <p>{{noticia.sinpsis}}</p>
-            {%endfor%}
-        </ul>
+{%block content%}{#no a sido probado :v#}
+    <div class = "publicaciones">
+        {% for pub in publicaciones%}
+            <div class="publicacion">
+                <h2{{pub.titulo}}</h2>
+                <p><strong>Autor:</strong> {{pub.nombre}}</p>
+                <p>{{pub.resumen}}</p>
+                {% if pub.imagen %}
+                    <img src=" pub.imagen.url"{#xd#} alt="Imagen de {{pub.titulo}}" width="200">
+                {% endif %}
+                <p><em>{{pub.fecha_creacion}}</em></p>
+                <p><strong>Tags:</strong>
+                    {% for tag in pub.tags|slice:":3"%}
+                    <span class="tag">{{tag}}</span>
+                    {% endfor %}
+                </p>
+            </div>
+        {% empty %}
+            <p>No hay publicaciones disponibles.</p>
+        {% endfor %}
+        </div>
 {%endblock %}
 
-{%block footer%}{#Aun falta mejorar#}
-    <footer style="text-align: left; padding: 5px; background-color: #ff84c1ff; color: white; position: fixed; bottom: 0; width: 100%;">
-        <p>&copy; 2025 Safe and Sound. Todos los derechos reservados Contacto:oye, no nada.</p>
-        <a href="https://forms.gle/MtMX5k4bFdfaLLPN6" style="color: white; text-decoration: none;">Conviertete en un creador</a>
+{%block footer%}
+    {% load static %}
+    <head>
+        <link rel="stylesheet" href="{% static 'miapp/css/footerhome.css' %}">  
+    <footer>
+        <p><strong>&copy; 2025 Safe and Sound. Todos los derechos reservados Contacto:oye, no nada.</strong></p>
+        <a href="https://forms.gle/MtMX5k4bFdfaLLPN6">Conviertete en un creador</a>
     </footer>
 {%endblock%}
