@@ -7,16 +7,16 @@ from GestionPosts.models import Publicaciones
 # Create your views here.
 def home(request):
     # todo: esto es ineficiente porfavor hagan un comando para sqlite donde se obtienen los primeros 3 en vez de allocar toda la santa base de datos.
-    moriras = Publicaciones(id=1,
-    titulo= 'CONCJEGTIMARE',
+    nomegusta = Publicaciones(id=1,
+    titulo= 'hola!!!!',
     resumen="ade",
-    parrafo="moriras"
+    parrafo="PEP 8: E128 continuation line under-indented for visual indent"
     )
     # tienetexto = Publicaciones.objects.order_by("fecha_creacion").all()[:3]
-    tienetexto = {
-        "publicaciones":[moriras]
+    posts = {
+        "publicaciones":[nomegusta]
     }
-    return render(request,'home.html', context=tienetexto)
+    return render(request,'home.html', context=posts)
 def perfil(request):
     return render(request, 'perfil.html')
 def login(request):
