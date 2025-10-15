@@ -4,7 +4,8 @@ from GestionPerfil.models import Usuarios
 # Create your models here.
 
 class Tags(models.Model):
-    tag = models.CharField(max_length=15, primary_key=True)
+    tag = models.CharField(max_length=15)
+    # NO CONVERTIR A LLAVE PRIMARIA porfavor los ManyToManyFields requieren ids pq las bases de dato estan bien hechas :)
 
     def __str__(self):
         return self.tag

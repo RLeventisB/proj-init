@@ -5,20 +5,16 @@
 
 {%block content%}{#no a sido probado :v#}
     <div class = "publicaciones">
-        {% for pub in publicaciones%}
+        {% for pub in publicaciones %}
             <div class="publicacion">
-                <h2{{pub.titulo}}</h2>
+                <h2>{{pub.titulo}}</h2>
                 <p><strong>Autor:</strong> {{pub.nombre}}</p>
                 <p>{{pub.resumen}}</p>
                 {% if pub.imagen %}
-                    <img src=" pub.imagen.url"{#xd#} alt="Imagen de {{pub.titulo}}" width="200">
+                    <img src=" pub.imagen.url"{#xd#} alt="Imagen de {{pub.titulo}}" width="200"> ae
+<!--                TODO: ver donde mierda salen las imagenes en enlaces-->
                 {% endif %}
                 <p><em>{{pub.fecha_creacion}}</em></p>
-                <p><strong>Tags:</strong>
-                    {% for tag in pub.tags|slice:":3"%}
-                    <span class="tag">{{tag}}</span>
-                    {% endfor %}
-                </p>
             </div>
         {% empty %}
             <p>No hay publicaciones disponibles.</p>
