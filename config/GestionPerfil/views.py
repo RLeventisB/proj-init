@@ -8,7 +8,6 @@ from .models import Usuarios
 
 def signup(request):
     if request.method == 'POST':
-        request.POST['contraseña'] == request.POST['contraseña2']
         form = CuestionarioForm(request.POST)
         if form.is_valid():
             form.save()

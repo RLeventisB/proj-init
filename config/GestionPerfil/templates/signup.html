@@ -5,8 +5,6 @@
     <link rel="stylesheet" href="{% static 'miapp/css/signup.css' %}">
     <h1>Sign Up</h1>
 
-    {{ form.non_field_errors }}
-
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
