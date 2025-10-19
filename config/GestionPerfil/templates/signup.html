@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+{% block titulopagina %} Sign Up {% endblock %}
+{% block content %}
+    <h1>Sign Up</h1>
+
+    {{ form.non_field_errors }}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <p>¿Ya tienes una cuenta? <a href="/login/">Inicia sesión aquí</a>.</p>
+{% endblock %}
