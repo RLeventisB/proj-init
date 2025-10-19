@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .forms import*
 from .models import*
 from GestionPosts.models import Publicaciones
-
+from GestionPerfil.views import signup
 
 # Create your views here.
 def home(request):
@@ -21,4 +21,6 @@ def perfil(request):
     return render(request, 'perfil.html')
 def login(request):
     return render(request,'login.html' )
+def singup(request):
+    return signup(request,'GestionPerfil/signup.html')
 
