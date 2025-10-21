@@ -1,6 +1,5 @@
 from django import forms
 from .models import Usuarios
-from django.core.validators import MinLengthValidator
 
 
 class CuestionarioForm(forms.ModelForm):
@@ -33,23 +32,14 @@ class CuestionarioForm(forms.ModelForm):
         if contraseña and contraseña2 and contraseña != contraseña2:
             raise forms.ValidationError('Las contraseñas deben coincidir.')
         
-class LoginForm(forms.ModelForm):
-    class Meta:
-        model = Usuarios
-        fields = ('correo', 'contraseña')
-        
-        labels = {
-            'correo': 'Correo Electrónico',
-            'contraseña': 'Contraseña',
-        }
-        
-        widgets = {
-            'contraseña': forms.PasswordInput(),
-        }
+class LoginForm(forms.Form):
+    correo = forms.EmailField(max_length=255, widget=forms.EmailInput(attrs={'placeholder': 'Correo electrónico'}))
+    contraseña = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Contraseña'}))
+
     def clean(self):
         super().clean()
         correo = self.cleaned_data.get('correo')
         contraseña = self.cleaned_data.get('contraseña')
-
-        if not correo or not contraseña:
-            raise forms.ValidationError('Ambos campos son obligatorios.')
+        if correo and contraseña:
+            if not Usuarios.objects.filter(correo=correo, contraseña=contraseña).exists():
+                raise forms.ValidationError('Correo o contraseña incorrectos.')
