@@ -19,6 +19,7 @@
         {% empty %}
             <p>No hay publicaciones disponibles.</p>
         {% endfor %}
+        
         {% if request.session.usuario_pk %}
             <p>Sesión iniciada correctamente!</p>
         {% endif %}
@@ -30,7 +31,7 @@
     <head>
         <link rel="stylesheet" href="{% static 'miapp/css/footerhome.css' %}">  
     <footer>
-        <p><strong>&copy; 2025 Safe and Sound. Todos los derechos reservados Contacto: safeandsound.contacto@gmail.com</strong></p>
+        <p><strong>&copy; 2025 Safe and Sound. Todos los derechos reservados. Contacto: safeandsound.contacto@gmail.com</strong></p>
         <a href="https://forms.gle/MtMX5k4bFdfaLLPN6">Conviertete en un creador</a><br><br>
     </footer>
 {%endblock%}
