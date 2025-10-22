@@ -1,0 +1,21 @@
+{% extends "index.html" %}
+{% block titulopagina %}Perfil{% endblock %}
+
+
+
+
+{% block content %}
+    {%load static%}
+<link rel="stylesheet" href="{% static 'miapp/css/login.css'%}">
+    <h1>Bienvenid@</h1>
+
+    <h1>Actualiza tu información</h4>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }} 
+
+        <button type="submit">Update</button>
+    </form>
+
+{% endblock %}

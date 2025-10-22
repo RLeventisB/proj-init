@@ -7,7 +7,6 @@ from GestionPerfil.views import *
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('perfil/', views.perfil, name='perfil'),
     path('GestionPerfil/login', include(gestionperfil_urls), name='login'),
     path('GestionPerfil/signup', include(gestionperfil_urls), name='signup'),
 ]

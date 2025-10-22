@@ -43,3 +43,20 @@ class LoginForm(forms.Form):
         if correo and contraseña:
             if not Usuarios.objects.filter(correo=correo, contraseña=contraseña).exists():
                 raise forms.ValidationError('Correo o contraseña incorrectos.')
+            
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Usuarios
+        fields = ['nombre']
+    
+        labels = {
+            'nombre': 'Nuevo nombre de usuario',
+        }
+    
+    def clean(self):
+        super().clean()
+        nombre = self.cleaned_data.get('nombre')
+        if nombre and len(nombre) < 5:
+            raise forms.ValidationError('El nombre de usuario debe tener al menos 5 caracteres.')
+
+    

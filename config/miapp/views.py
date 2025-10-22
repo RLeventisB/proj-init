@@ -8,7 +8,7 @@ from GestionPerfil.views import signup
 def home(request):
     # todo: esto es ineficiente porfavor hagan un comando para sqlite donde se obtienen los primeros 3 en vez de allocar toda la santa base de datos.
     nomegusta = Publicaciones(id=1,
-    titulo= 'hola!!!!',
+    titulo= 'Safe and Sound',
     resumen="ade",
     parrafo="PEP 8: E128 continuation line under-indented for visual indent"
     )

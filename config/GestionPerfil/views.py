@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import CuestionarioForm
 from .forms import LoginForm
+from .forms import UserUpdateForm
 from .models import Usuarios
 
 # Create your views here.
@@ -41,3 +42,18 @@ def logout(request):
     if 'usuario_pk' in request.session:
         del request.session['usuario_pk']
     return redirect('home')
+
+def userupdate(request):
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST)
+        if form.is_valid():
+            usuario = Usuarios.objects.get(correo=request.session['usuario_pk'])
+            usuario_nuevo = form.cleaned_data['nombre']
+            usuario.nombre = usuario_nuevo
+            usuario.save()
+            return redirect('perfil')
+    else:
+        form = UserUpdateForm()
+    return render(request, 'perfil.html', {'form': form})
+
+
