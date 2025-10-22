@@ -3,6 +3,7 @@
     <head>
         {% load static %}
         <link rel="stylesheet" href="{% static 'miapp/css/style1.css' %}">
+        
 
     </head>
     <header class="navbar">
@@ -11,9 +12,14 @@
          </div>  
         <nav class="nav-links">
          <a href="{% url "home" %}" class="button">Ir a Home</a>
-         <a href="{% url 'signup'%}" class="button">Sign up</a>
-         <a href="{% url "login" %}" class="button">Log in</a>
-         <a href="{% url "perfil" %}" class="button">Ir a perfil</a>
+        {% if request.session.usuario_pk %}
+             <a href="{% url "perfil" %}" class="button">Ir a perfil</a>
+             <a href="{% url 'logout' %}">Cerrar Sesión</a>
+
+            {%else%}
+             <a href="{% url "login" %}" class="button">Log in</a>
+             <a href="{% url 'signup'%}" class="button">Sing up</a>
+            {%endif%}
         </nav>
     </div>
     </header>
