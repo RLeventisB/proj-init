@@ -5,8 +5,8 @@ from django.db import models
 class Usuarios(models.Model):
     correo = models.EmailField(primary_key=True)
     nombre = models.CharField(max_length=15)
-    contraseña = models.CharField(max_length=10)
-    contraseña2 = models.CharField(max_length=10, default=contraseña)
+    contraseña = models.CharField(max_length=100)
+    contraseña2 = models.CharField(max_length=100, default=contraseña)
     rango = models.IntegerField(default=0)
 
     def __str__(self):

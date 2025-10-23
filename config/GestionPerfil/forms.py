@@ -1,8 +1,9 @@
 from django import forms
 from .models import Usuarios
+import hashlib
 
 
-class CuestionarioForm(forms.ModelForm):
+class SignupForm(forms.ModelForm):
     class Meta:
         model = Usuarios
         fields = ('correo', 'nombre', 'contraseña', 'contraseña2')
@@ -13,16 +14,20 @@ class CuestionarioForm(forms.ModelForm):
             'contraseña': 'Contraseña',
             'contraseña2': 'Repetir Contraseña',
         }
-
-        help_texts = {
-            'contraseña': '<strong>Máximo 10 caracteres.</strong>',
-        }
         
         widgets = {
             'nombre': forms.TextInput(attrs={'minlength': 5}),
             'contraseña': forms.PasswordInput(),
             'contraseña2': forms.PasswordInput(),
         }
+
+    def set_contraseña_encriptada(self, valor):
+        self.contraseña = hashlib.sha256(valor.encode()).hexdigest()
+        self.contraseña2 = hashlib.sha256(valor.encode()).hexdigest()
+    
+    def get_contraseña_encriptada(self):
+        return self.contraseña, self.contraseña2
+
 
     def clean(self):
         super().clean()
@@ -52,11 +57,7 @@ class UserUpdateForm(forms.ModelForm):
         labels = {
             'nombre': 'Nuevo nombre de usuario',
         }
-    
-    def clean(self):
-        super().clean()
-        nombre = self.cleaned_data.get('nombre')
-        if nombre and len(nombre) < 5:
-            raise forms.ValidationError('El nombre de usuario debe tener al menos 5 caracteres.')
+        widgets = {
+            'nombre': forms.TextInput(attrs={'minlength': 5})
+        }    
 
-    

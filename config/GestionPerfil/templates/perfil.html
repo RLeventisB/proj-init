@@ -7,15 +7,32 @@
 {% block content %}
     {%load static%}
 <link rel="stylesheet" href="{% static 'miapp/css/login.css'%}">
-    <h1>Bienvenid@</h1>
+    <h1>Bienvenid@ {{ request.session.usuario }} </h1>
 
-    <h1>Actualiza tu información</h4>
+    <h1>Actualiza tu información</h1>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }} 
+<form method="post">
 
-        <button type="submit">Update</button>
-    </form>
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit" name="enviar_form1">Actualizar Información</button>
+</form>
+
+   <h1>Publicar</h1>
+<form>
+
+   <button type="submit" name="Publicar">Publicar</button>
+
+</form>
+
+   <h1>Borrar Cuenta</h1>
+
+<form method="post">
+    
+    {% csrf_token %}
+    
+    <button type="submit" name="borrar_cuenta">Borrar Cuenta</button>
+</form>
 
 {% endblock %}
