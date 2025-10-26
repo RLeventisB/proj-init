@@ -28,7 +28,7 @@ def login(request):
                 request.session['usuario'] = usuario.nombre
                 return redirect('home')
         else:
-            return (render(request, 'login.html', {'form': form}), correo)
+            return render(request, 'login.html', {'form': form})
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
@@ -69,5 +69,4 @@ def formulariosperfil(request):
                 return redirect('home')
             except usuario.DoesNotExist:
                 return redirect('perfil')
-            pass
     return render(request, 'perfil.html', {'form': form})
