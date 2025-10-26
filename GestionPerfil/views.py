@@ -26,6 +26,7 @@ def login(request):
             if usuario.contraseña == contraseña:
                 request.session['usuario_pk'] = usuario.correo, usuario.nombre
                 request.session['usuario'] = usuario.nombre
+
                 return redirect('home')
         else:
             return render(request, 'login.html', {'form': form})
@@ -34,11 +35,8 @@ def login(request):
     return render(request, 'login.html', {'form': form})
 
 def verificar_sesion(request):
-    if 'usuario_pk' in request.session:
-        return True
-    else:
-        return False
-    
+    return 'usuario_pk' in request.session
+
 def logout(request):
     if 'usuario_pk' in request.session:
         del request.session['usuario_pk']
@@ -56,8 +54,7 @@ def formulariosperfil(request):
                 usuario.save()
                 request.session['usuario_pk'] = usuario.correo, usuario.nombre
                 request.session['usuario'] = usuario.nombre
-                print(request.session['usuario_pk'])
-                print(request.session['usuario'])
+
                 return redirect('perfil')
             pass
     

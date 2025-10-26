@@ -4,21 +4,21 @@ import hashlib
 
 
 class SignupForm(forms.ModelForm):
+    contraseña2 = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'placeholder': 'Repetir Contraseña'}))
     class Meta:
         model = Usuarios
-        fields = ('correo', 'nombre', 'contraseña', 'contraseña2')
+        fields = ('correo', 'nombre', 'contraseña')
         
         labels = {
             'correo': 'Correo Electrónico',
             'nombre': 'Nombre de Usuario',
             'contraseña': 'Contraseña',
-            'contraseña2': 'Repetir Contraseña',
         }
         
         widgets = {
-            'nombre': forms.TextInput(attrs={'minlength': 5}),
-            'contraseña': forms.PasswordInput(),
-            'contraseña2': forms.PasswordInput(),
+            'correo': forms.EmailInput(attrs={'placeholder': 'Correo Electrónico'}),
+            'nombre': forms.TextInput(attrs={'minlength': 5, 'placeholder': 'Nombre'}),
+            'contraseña': forms.PasswordInput(attrs={'placeholder': 'Contraseña'}),
         }
 
     def set_contraseña_encriptada(self, valor):
@@ -27,7 +27,6 @@ class SignupForm(forms.ModelForm):
     
     def get_contraseña_encriptada(self):
         return self.contraseña, self.contraseña2
-
 
     def clean(self):
         super().clean()
