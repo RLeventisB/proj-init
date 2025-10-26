@@ -1,37 +1,39 @@
 {% extends "index.html" %}
 {% block titulopagina %}Perfil{% endblock %}
 
-
-
-
 {% block content %}
-    {%load static%}
+{%load static%}
 <link rel="stylesheet" href="{% static 'miapp/css/login.css'%}">
-    <h1>Bienvenid@ {{ request.session.usuario }} </h1>
+<h1>Bienvenid@ {{ request.session.usuario }} </h1>
 
-    <h1>Actualiza tu información</h1>
+<h1>Actualiza tu información</h1>
 
 <form method="post">
 
     {% csrf_token %}
-    {{ form.as_p }}
-    
-    <button type="submit" name="enviar_form1">Actualizar Información</button>
+    {{ nameupdateform.as_p }}
+
+    <button type="submit" name="solicitar_cambio_usuario">Actualizar Información</button>
 </form>
 
-   <h1>Publicar</h1>
-<form>
-
-   <button type="submit" name="Publicar">Publicar</button>
-
-</form>
-
-   <h1>Borrar Cuenta</h1>
+{% if es_creador %}
+<h1>Publicar</h1>
 
 <form method="post">
-    
+
     {% csrf_token %}
-    
+
+    <button type="submit" name="crear_post">Crear post</button>
+
+</form>
+{% endif %}
+
+<h1>Borrar Cuenta</h1>
+
+<form method="post">
+
+    {% csrf_token %}
+
     <button type="submit" name="borrar_cuenta">Borrar Cuenta</button>
 </form>
 

@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% block titulopagina %} Crear Post {% endblock %}
+
+{% block extracss %}
+{%load static%}
+<link rel="stylesheet" href="{% static 'miapp/css/post.css'%}">
+<link rel="stylesheet" href="{% static 'miapp/css/style1.css'%}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+
+{% endblock %}
+
+{% block content %}
+{%load static%}
+
+
+<h1>Crear post</h1>
+<form method="post">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Crea la cosa</button>
+
+</form>
+<script>
+    // opciones en https://github.com/Ionaru/easy-markdown-editor#configuration
+    <!--var easyMDE = new EasyMDE({
+        element: document.getElementById('id_parrafo'),
+        uploadImage: true,
+        initialValue: "",
+        placeholder: "que hiciste",
+    });-->
+</script>
+
+{% endblock %}

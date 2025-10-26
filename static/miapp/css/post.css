@@ -1,0 +1,80 @@
+/* Fondo general */
+body {
+    background: linear-gradient(to bottom right, #c66aab, #c66aab);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor del formulario */
+form {
+    background-color: #68417f;
+    padding: 30px;
+    margin: 25px auto;
+    width: 70%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 4Sem;
+}
+
+p {
+    font-size: 1em;
+    background-color: #68417f;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #333;
+    font-size: 1em;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #f2cfda;
+    border: none;
+    border-radius: 10px;
+    color: #68417f;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #f2cfda;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 15px;
+    font: 1em sans-serif;
+}
+
+ .CodeMirror-scroll
+ {
+    height: 10% !important
+ }
+
+ body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(to right, #c66aab, #c66aab);
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+}

@@ -1,37 +1,31 @@
 {% block arriba %}
-    <html>
-    <head>
-        {% load static %}
-        <link rel="stylesheet" href="{% static 'miapp/css/style1.css' %}">
-        
-
-    </head>
-    <header class="navbar">
-        <div class="logo"> 
-            <img src="https://pbs.twimg.com/profile_images/1446527145774391359/70TP4t7C_400x400.jpg" alt="Logo" width="50">
-         </div>  
-        <nav class="nav-links">
-         <a href="{% url "home" %}" class="button">Ir a Home</a>
-        {% if request.session.usuario_pk %}
-             <a href="{% url "perfil" %}" class="button">Ir a perfil</a>
-             <a href="{% url 'logout' %}">Cerrar Sesión</a>
-
-            {%else%}
-             <a href="{% url "login" %}" class="button">Log in</a>
-             <a href="{% url 'signup'%}" class="button">Sign up</a>
-            {%endif%}
-        </nav>
+<html>
+<head>
+    {% block extracss %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'miapp/css/style1.css' %}">
+    {% endblock %}
+</head>
+<header class="navbar">
+    <div class="logo">
+        <img src="https://pbs.twimg.com/profile_images/1446527145774391359/70TP4t7C_400x400.jpg" alt="Logo" width="50">
     </div>
-    </header>
+    <nav class="nav-links">
+        <a href="{% url 'home' %}" class="button">Ir a Home</a>
+        {% if request.session.usuario_pk %}
+        <a href="{% url 'perfil' %}" class="button">Ir a perfil</a>
+        <a href="{% url 'logout' %}">Cerrar Sesión</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="button">Log in</a>
+        <a href="{% url 'signup'%}" class="button">Sign up</a>
+        {% endif %}
+    </nav>
+</header>
 {% endblock %}
 <title>{% block titulopagina %}Mi Sitio Web{% endblock %}</title>
 
 {% block content %}
-    <h1>Bienvenido a Mi Sitio Web</h1>
-    <p>Este es un sitio web de ejemplo utilizando Django.</p>
 {% endblock %}
-
 
 {% block footer%}
 {% endblock %}
-    
