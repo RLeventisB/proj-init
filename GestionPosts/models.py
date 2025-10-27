@@ -16,7 +16,7 @@ class Tags(models.Model):
 
 
 class Publicaciones(models.Model):
-    titulo = models.CharField(max_length=40)
+    titulo = models.CharField(max_length=100)
     nombre = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
     resumen = models.CharField(max_length=500)
     parrafo = MartorField()

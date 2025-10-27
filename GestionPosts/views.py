@@ -1,9 +1,10 @@
 import datetime
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from GestionPerfil.models import Usuarios
 from GestionPosts.forms import PostForm
+from .models import Publicaciones
 
 
 def verificar_sesion(request):
@@ -37,3 +38,7 @@ def crearpost(request):
         form = PostForm()
 
     return render(request, 'crearpost.html', context={'form': form, 'sobreescribir_css': True})
+
+def post(request, pk):
+    post = get_object_or_404(Publicaciones, pk=pk)
+    return render(request, 'post.html', {'post': post})

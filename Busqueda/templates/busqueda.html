@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+{%block content%}
+<form method="get" action="{% url 'busqueda' %}">
+    <input type="search" name="q" placeholder="Busca publicaciones...">
+    <button type="submit">Buscar</button>
+</form>
+
+{% for publicacion in publicaciones %}
+    <h2><a href="{% url 'post' publicacion.pk %}">{{ publicacion.titulo }}</a></h2>
+    <p>&emsp;&emsp;Abstract: {{ publicacion.resumen }}</p>
+{% empty %}
+    No se encontraron resultados.
+{% endfor %}
+{%endblock%}

@@ -9,7 +9,7 @@ RANGOS = {
 
 class Usuarios(models.Model):
     correo = models.EmailField(primary_key=True)
-    nombre = models.CharField(max_length=15)
+    nombre = models.CharField(max_length=50)
     contraseña = models.CharField(max_length=100)
     rango = models.IntegerField(default=0, choices=RANGOS)
 

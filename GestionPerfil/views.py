@@ -19,7 +19,7 @@ def signup(request):
             request.session['usuario_pk'] = usuario.correo, usuario.nombre
             request.session['usuario'] = usuario.nombre
 
-            return redirect('home')
+            return redirect('login')
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
@@ -37,7 +37,7 @@ def login(request):
                 request.session['usuario_pk'] = usuario.correo, usuario.nombre
                 request.session['usuario'] = usuario.nombre
 
-                return redirect('perfil')
+                return redirect('home')
         else:
             return render(request, 'login.html', {'form': form})
     else:
