@@ -24,8 +24,13 @@ def crearpost(request):
                 return redirect('../')
 
             form.instance.nombre = usuario
-            # form.instance.tags.set([])
-            form.save()
+            publicacion = form.save()
+
+            # se tiene que guardar el forms primero para generar la id, y asi los tags pueden tener una llave primaria a la cual se enlazan, yipee.
+
+            for tagSeleccionado in form.cleaned_data.get('tags'):
+                publicacion.tags.add(tagSeleccionado)
+            publicacion.save()
 
             return redirect('perfil')
     else:

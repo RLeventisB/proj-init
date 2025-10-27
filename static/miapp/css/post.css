@@ -23,9 +23,12 @@ h1 {
     font-size: 4Sem;
 }
 
+.martor-preview p {
+    color: #000000;
+}
+
 p {
     font-size: 1em;
-    background-color: #68417f;
 }
 
 input[type="text"],
@@ -64,11 +67,6 @@ label {
     margin-top: 15px;
     font: 1em sans-serif;
 }
-
- .CodeMirror-scroll
- {
-    height: 10% !important
- }
 
  body {
     margin: 0;

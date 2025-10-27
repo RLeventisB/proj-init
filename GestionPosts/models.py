@@ -1,6 +1,7 @@
 from django.db import models
+from martor.models import MartorField
+
 from GestionPerfil.models import Usuarios
-from easymde.fields import EasyMDEField
 
 
 # Create your models here.
@@ -18,7 +19,7 @@ class Publicaciones(models.Model):
     titulo = models.CharField(max_length=40)
     nombre = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
     resumen = models.CharField(max_length=500)
-    parrafo = EasyMDEField(verbose_name="Contenido")
+    parrafo = MartorField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     imagen = models.ImageField(upload_to='imagenes/', null=True, blank=True)
     tags = models.ManyToManyField(Tags, blank=True, related_name="tag", related_query_name="tag")
