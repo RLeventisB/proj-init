@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from GestionPosts.forms import CommentForm
 from GestionPerfil.models import Usuarios
@@ -68,3 +70,21 @@ def post(request, pk):
         context["form"] = form
 
     return render(request, 'post.html', context)
+
+def eliminarcomentarios(request, pk):
+    instance = get_object_or_404(Comentarios, pk=pk)
+    if instance.correo != utils.obtener_usuario_sesion(request):
+        response = HttpResponse("No tienes permitido realizar esta acción")
+        response.status_code = 403
+        return response
+    
+    if request.method == "POST":
+        padre_instance_url = instance.publicacion.get_absolute_url()
+        instance.delete()
+        messages.success(request, "Se ha eliminado tu comentario")
+        return HttpResponseRedirect(padre_instance_url)
+    
+    context = {
+        'instance': instance
+    }
+    return render(request, 'eliminar.html', context)

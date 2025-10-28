@@ -1,6 +1,6 @@
 from django.db import models
 from martor.models import MartorField
-
+from django.urls import reverse
 from GestionPerfil.models import Usuarios
 
 
@@ -26,6 +26,9 @@ class Publicaciones(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+    def get_absolute_url(self):
+        return reverse('post', kwargs={'pk': self.pk})
 
 
 class Comentarios(models.Model):

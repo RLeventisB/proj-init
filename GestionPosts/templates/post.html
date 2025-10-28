@@ -43,6 +43,7 @@
         <p>
             {{ comment.contenido | linebreaks }}
         </p>
+        <a href="{% url 'eliminar' comment.pk %}">Eliminar Comentario</a>
     {% endfor %}
 
 {%endblock%}

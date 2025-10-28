@@ -1,0 +1,16 @@
+{% block main%}
+<div class = "div_eliminar">
+    <h1>
+        Confirmar Acció
+    </h1>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            ¿Estas segur@ de eliminar: {{instance.contenido}}?
+        </p>
+        <button type="submit">Confirmar</button>
+        <a href="{{instance.get_absolute_url}}">Cancelar</a>
+
+    </form>
+</div>
+{%endblock%}
