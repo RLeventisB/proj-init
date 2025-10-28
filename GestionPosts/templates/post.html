@@ -37,13 +37,14 @@
 
 <h3>Comentarios:</h3>
 {% for comment in comments %}
-        <p>
-            El {{ comment.fecha_comentario.date }} <b>{{ comment.correo.nombre }}</b> escribió:
-        </p>
-        <p>
-            {{ comment.contenido | linebreaks }}
-        </p>
+    <p>
+        El {{ comment.fecha_comentario.date }} <b>{{ comment.correo.nombre }}</b> escribió:
+    </p>
+    <p>
+        {{ comment.contenido | linebreaks }}
+    </p>
+    {% if comment.correo == usuario_actual %}
         <a href="{% url 'eliminar' comment.pk %}">Eliminar Comentario</a>
-    {% endfor %}
-
+    {% endif %}
+{% endfor %}
 {%endblock%}

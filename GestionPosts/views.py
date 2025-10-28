@@ -48,6 +48,7 @@ def post(request, pk):
     }
 
     if autenticado:
+        context["usuario_actual"] = utils.obtener_usuario_sesion(request)
         if request.method == "POST":
             form = CommentForm(request.POST)
             if form.is_valid():
