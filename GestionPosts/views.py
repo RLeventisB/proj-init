@@ -1,10 +1,11 @@
+
 import datetime
-
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-
+from GestionPosts.forms import CommentForm
 from GestionPerfil.models import Usuarios
 from GestionPosts.forms import PostForm
-from .models import Publicaciones
+from .models import Publicaciones, Comentarios
 
 
 def verificar_sesion(request):
@@ -41,4 +42,29 @@ def crearpost(request):
 
 def post(request, pk):
     post = get_object_or_404(Publicaciones, pk=pk)
-    return render(request, 'post.html', {'post': post})
+    comments = Comentarios.objects.filter(publicacion=post)
+    context = {
+        "post": post,
+        "comments": comments,
+    }
+
+    if verificar_sesion(request):
+        if request.method == "POST":
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                usuario = Usuarios.objects.get(correo=request.session['usuario_pk'][0])
+                comment = Comentarios(
+                    contenido=form.cleaned_data["body"],
+                    publicacion=post,
+                    correo=usuario,
+                )
+                comment.save()
+                return HttpResponseRedirect(request.path_info)
+        else:
+            form = CommentForm()
+        context["form"] = form
+        context["autenticado"] = True
+    else:
+        context["autenticado"] = False
+
+    return render(request, 'post.html', context)
