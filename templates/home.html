@@ -12,9 +12,8 @@
     <div class="publicacion">
         <h2>{{pub.titulo}}</h2>
         <p><strong>Autor:</strong> {{pub.nombre}}</p>
-        <p>{{pub.parrafo}}</p>
         {% if pub.imagen %}
-        <img src=" pub.imagen.url" {#xd#} alt="Imagen de {{pub.titulo}}" width="200"> ae
+        <img src='{{ pub.imagen.url }}' alt="Imagen de {{pub.titulo}}" width="200">
 
         {% endif %}
         <p><em>{{pub.fecha_creacion}}</em></p>
