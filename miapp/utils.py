@@ -17,10 +17,9 @@ def verificar_sesion(request) -> bool:
 def asignar_usuario(request, usuario) -> None:
     if usuario is None and 'usuario_pk' in request.session:
         del request.session['usuario_pk']
+        del request.session['usuario_']
 
         return
     
     request.session['usuario_pk'] = usuario.correo, usuario.nombre
-
-    # usamos esto???????
-    # request.session['usuario'] = usuario.nombre
+    request.session['usuario'] = usuario.nombre
