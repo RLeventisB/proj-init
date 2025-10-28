@@ -1,25 +1,21 @@
-
 from django.shortcuts import render, redirect, get_object_or_404
 from GestionPosts.forms import CommentForm
 from GestionPerfil.models import Usuarios
 from GestionPosts.forms import PostForm
 from .models import Publicaciones, Comentarios
-
-
-def verificar_sesion(request):
-    return 'usuario_pk' in request.session and Usuarios.objects.get(correo=request.session['usuario_pk'][0]).rango in [0,1] 
+from miapp import utils
 
 
 # Create your views here.
 def crearpost(request):
-    if not verificar_sesion(request):
+    if not utils.verificar_creador(request):
         # vete de aqui >:(
         return redirect('../')
 
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            usuario = Usuarios.objects.get(correo=request.session['usuario_pk'][0])
+            usuario = utils.obtener_usuario_sesion(request)
             if usuario.rango == 0:
                 return redirect('../')
 
@@ -38,19 +34,22 @@ def crearpost(request):
 
     return render(request, 'crearpost.html', context={'form': form, 'sobreescribir_css': True})
 
+
 def post(request, pk):
     post = get_object_or_404(Publicaciones, pk=pk)
     comments = Comentarios.objects.filter(publicacion=post)
+    autenticado = utils.verificar_sesion(request)
     context = {
         "post": post,
         "comments": comments,
+        "autenticado": autenticado
     }
 
-    if verificar_sesion(request):
+    if autenticado:
         if request.method == "POST":
             form = CommentForm(request.POST)
             if form.is_valid():
-                usuario = Usuarios.objects.get(correo=request.session['usuario_pk'][0])
+                usuario = utils.obtener_usuario_sesion(request)
                 comment = Comentarios(
                     contenido=form.cleaned_data['body'],
                     publicacion=post,
@@ -58,13 +57,14 @@ def post(request, pk):
                 )
                 comment.save()
                 form = CommentForm()
+                context["form"] = form
+
+                # redirect ya que https://stackoverflow.com/a/14534547
+                return redirect('.', context)
 
         else:
             form = CommentForm()
-        context["form"] = form
-        context["autenticado"] = True
 
-    else:
-        context["autenticado"] = False
+        context["form"] = form
 
     return render(request, 'post.html', context)

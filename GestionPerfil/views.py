@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-import GestionPerfil.models
+from miapp import utils
 from .forms import SignupForm
 from .forms import LoginForm
 from .forms import UserUpdateForm
@@ -34,8 +34,7 @@ def login(request):
             contraseña = form.cleaned_data['contraseña']
             usuario = Usuarios.objects.get(correo=correo)
             if usuario.contraseña == contraseña:
-                request.session['usuario_pk'] = usuario.correo, usuario.nombre
-                request.session['usuario'] = usuario.nombre
+                utils.asignar_usuario(request, usuario)
 
                 return redirect('home')
         else:
@@ -45,23 +44,19 @@ def login(request):
     return render(request, 'login.html', {'form': form})
 
 
-def verificar_sesion(request):
-    return 'usuario_pk' in request.session
-
-
 def logout(request):
-    if 'usuario_pk' in request.session:
-        del request.session['usuario_pk']
+    utils.asignar_usuario(request, None)
+
     return redirect('home')
 
 
 def formulariosperfil(request):
-    if not verificar_sesion(request):
+    if not utils.verificar_sesion(request):
         # vete de aqui >:(
         return redirect('../')
 
     nameupdateform = UserUpdateForm(request.POST)
-    usuario = Usuarios.objects.get(correo=request.session['usuario_pk'][0])
+    usuario = utils.obtener_usuario_sesion(request)
 
     if request.method == 'POST':
         if 'solicitar_cambio_usuario' in request.POST:
@@ -70,8 +65,7 @@ def formulariosperfil(request):
                 usuario.nombre = nombre_nuevo
                 usuario.save()
 
-                request.session['usuario_pk'] = usuario.correo, usuario.nombre
-                request.session['usuario'] = usuario.nombre
+                utils.asignar_usuario(request, usuario)
 
                 return redirect('perfil')
             pass
@@ -82,8 +76,8 @@ def formulariosperfil(request):
         elif 'borrar_cuenta' in request.POST:
             try:
                 usuario.delete()
-                del request.session['usuario_pk']
-                del request.session['usuario']
+                utils.asignar_usuario(request, None)
+
                 return redirect('home')
 
             except usuario.DoesNotExist:
