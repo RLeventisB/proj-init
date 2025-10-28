@@ -1,6 +1,5 @@
 from django import forms
 from .models import Usuarios
-import hashlib
 
 
 class SignupForm(forms.ModelForm):
@@ -20,13 +19,6 @@ class SignupForm(forms.ModelForm):
             'nombre': forms.TextInput(attrs={'minlength': 5, 'placeholder': 'Nombre'}),
             'contraseña': forms.PasswordInput(attrs={'placeholder': 'Contraseña'}),
         }
-
-    def set_contraseña_encriptada(self, valor):
-        self.contraseña = hashlib.sha256(valor.encode()).hexdigest()
-        self.contraseña2 = hashlib.sha256(valor.encode()).hexdigest()
-    
-    def get_contraseña_encriptada(self):
-        return self.contraseña, self.contraseña2
 
     def clean(self):
         super().clean()

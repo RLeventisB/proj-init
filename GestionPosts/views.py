@@ -1,6 +1,4 @@
 
-import datetime
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from GestionPosts.forms import CommentForm
 from GestionPerfil.models import Usuarios
@@ -9,7 +7,7 @@ from .models import Publicaciones, Comentarios
 
 
 def verificar_sesion(request):
-    return 'usuario_pk' in request.session and Usuarios.objects.get(correo=request.session['usuario_pk'][0]).rango != 0
+    return 'usuario_pk' in request.session and Usuarios.objects.get(correo=request.session['usuario_pk'][0]).rango in [0,1] 
 
 
 # Create your views here.
@@ -54,16 +52,18 @@ def post(request, pk):
             if form.is_valid():
                 usuario = Usuarios.objects.get(correo=request.session['usuario_pk'][0])
                 comment = Comentarios(
-                    contenido=form.cleaned_data["body"],
+                    contenido=form.cleaned_data['body'],
                     publicacion=post,
                     correo=usuario,
                 )
                 comment.save()
-                return HttpResponseRedirect(request.path_info)
+                form = CommentForm()
+
         else:
             form = CommentForm()
         context["form"] = form
         context["autenticado"] = True
+
     else:
         context["autenticado"] = False
 

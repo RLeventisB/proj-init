@@ -21,16 +21,16 @@
 <div class="post-content martor-preview">
     <p>{{ post.parrafo | safe_markdown }}</p>
 </div>
+
 {% if autenticado %}
-    {{ autenticado }}
-        <h3>Deja un comentario:</h3>
-        <form method="post">
-            {% csrf_token %}
-            <div>
-                {{ form.body }}
-            </div>
-            <button type="submit" class="btn btn-primary">Publicar</button>
-        </form>
+    <h3>Deja un comentario:</h3>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary">Publicar</button>
+    </form>
 {% else %}
         <p>Debes <a href="{% url 'login' %}">iniciar sesión</a> para comentar.</p>
 {% endif %}
@@ -38,7 +38,7 @@
 <h3>Comentarios:</h3>
 {% for comment in comments %}
         <p>
-            On {{ comment.fecha_comentario.date }} <b>{{ comment.correo.nombre }}</b> wrote:
+            El {{ comment.fecha_comentario.date }} <b>{{ comment.correo.nombre }}</b> escribió:
         </p>
         <p>
             {{ comment.contenido | linebreaks }}
