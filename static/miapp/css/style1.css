@@ -30,7 +30,7 @@ body {
     min-height: 100vh;
     background: linear-gradient(to right, #c66aab, #c66aab);
     font-family: 'Segoe UI', sans-serif;
-    color: black;
+    color: white;
 }
 
 form {
