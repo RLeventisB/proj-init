@@ -21,7 +21,7 @@ class Publicaciones(models.Model):
     resumen = models.CharField(max_length=500)
     parrafo = MartorField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-    imagen = models.ImageField(upload_to='imagenes/', null=True, blank=True)
+    imagen = models.ImageField(upload_to='imagenes/', null=False, blank=False)
     tags = models.ManyToManyField(Tags, blank=True, related_name="tag", related_query_name="tag")
 
     def __str__(self):
