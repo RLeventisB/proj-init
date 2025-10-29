@@ -30,5 +30,30 @@ body {
     min-height: 100vh;
     background: linear-gradient(to right, #c66aab, #c66aab);
     font-family: 'Segoe UI', sans-serif;
-    color: white;
+    color: black;
+}
+
+form {
+    background-color: #68417f;
+    padding: 30px;
+    margin: 25px auto;
+    width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.publicaciones{
+    text-align: center;
+    margin: 20px auto;
+    width: 80%;
+}
+
+.publicacion {
+    display: table-cell;
+    background-color: #68417f;
+    padding: 20px;
+    margin: 15px auto;
+    width: 400px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
