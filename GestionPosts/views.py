@@ -44,8 +44,9 @@ def crearpost(request: WSGIRequest):
 
             datos_post = request.POST.getlist('addtag')
             if len(datos_post) > 0:
-                tag_nuevo = Tags(contenido=datos_post[0])
-                if len(tag_nuevo.contenido) > 0:
+                contenido_tag_nuevo = datos_post[0].lower()
+                if not Tags.objects.filter(contenido=contenido_tag_nuevo).exists() and len(contenido_tag_nuevo) > 0:
+                    tag_nuevo = Tags(contenido=contenido_tag_nuevo)
                     tag_nuevo.save()
                     # form['tags'].add(tag_nuevo)
 
