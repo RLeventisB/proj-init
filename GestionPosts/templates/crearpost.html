@@ -31,7 +31,11 @@
 {% block content %}
 
 <h1>Crear publicación</h1>
-<form class="form" method="post">
+<!--
+    enctype esta debido a que https://stackoverflow.com/questions/57405859/error-with-input-file-in-django-does-not-recognize-the-file
+    quien cresta penso que no procesar la imagen de forma predeterminada es una buena idea
+-->
+<form class="form" method="post" enctype="multipart/form-data">
 
 
     {% csrf_token %}

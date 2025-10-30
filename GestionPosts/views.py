@@ -15,7 +15,9 @@ def crearpost(request):
         return redirect('../')
 
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        # VAMOOOOOOOOO ME LEI https://docs.djangoproject.com/en/5.2/topics/http/file-uploads/
+        # ModelForm tiene un misterioso 2do parametro no borrar o si no no habran imagenes
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             usuario = utils.obtener_usuario_sesion(request)
             if usuario.rango == 0:
@@ -72,19 +74,20 @@ def post(request, pk):
 
     return render(request, 'post.html', context)
 
+
 def eliminarcomentarios(request, pk):
     instance = get_object_or_404(Comentarios, pk=pk)
     if instance.correo != utils.obtener_usuario_sesion(request):
         response = HttpResponse("No tienes permitido realizar esta acción")
         response.status_code = 403
         return response
-    
+
     if request.method == "POST":
         padre_instance_url = instance.publicacion.get_absolute_url()
         instance.delete()
         messages.success(request, "Se ha eliminado tu comentario")
         return HttpResponseRedirect(padre_instance_url)
-    
+
     context = {
         'instance': instance
     }
