@@ -36,16 +36,22 @@
     quien cresta penso que no procesar la imagen de forma predeterminada es una buena idea
 -->
 <form class="form" method="post" enctype="multipart/form-data">
-
-
     {% csrf_token %}
+
     <div class="form-group">
         {{ form }}
+
     </div>
 
-    <button type="submit">Publicar</button>
+    <button type="submit" name="publish">Publicar</button>
 </form>
+<form class="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
 
+    <input type="text" name="addtag" placeholder="Añadir tag...">
+
+    <button type="submit" name="addtag">Añadir</button>
+</form>
 
 {% endblock %}
 

@@ -1,42 +1,60 @@
 from django.contrib import messages
+from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from GestionPosts.forms import CommentForm
 from GestionPerfil.models import Usuarios
 from GestionPosts.forms import PostForm
-from .models import Publicaciones, Comentarios
+from .models import Publicaciones, Comentarios, Tags
 from miapp import utils
 
 
 # Create your views here.
-def crearpost(request):
+def crearpost(request: WSGIRequest):
     if not utils.verificar_creador(request):
         # vete de aqui >:(
         return redirect('../')
 
     if request.method == 'POST':
-        # VAMOOOOOOOOO ME LEI https://docs.djangoproject.com/en/5.2/topics/http/file-uploads/
-        # ModelForm tiene un misterioso 2do parametro no borrar o si no no habran imagenes
         form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            usuario = utils.obtener_usuario_sesion(request)
-            if usuario.rango == 0:
-                return redirect('../')
 
-            form.instance.nombre = usuario
-            publicacion = form.save()
+        if 'publish' in request.POST:
+            # VAMOOOOOOOOO ME LEI https://docs.djangoproject.com/en/5.2/topics/http/file-uploads/
+            # ModelForm tiene un misterioso 2do parametro no borrar o si no no habran imagenes
+            if form.is_valid():
+                usuario = utils.obtener_usuario_sesion(request)
+                if usuario.rango == 0:
+                    return redirect('../')
 
-            # se tiene que guardar el forms primero para generar la id, y asi los tags pueden tener una llave primaria a la cual se enlazan, yipee.
+                form.instance.nombre = usuario
+                publicacion = form.save()
 
-            for tagSeleccionado in form.cleaned_data.get('tags'):
-                publicacion.tags.add(tagSeleccionado)
-            publicacion.save()
+                # se tiene que guardar el forms primero para generar la id, y asi los tags pueden tener una llave primaria a la cual se enlazan, yipee.
 
-            return redirect('perfil')
+                for tagSeleccionado in form.cleaned_data.get('tags'):
+                    publicacion.tags.add(tagSeleccionado)
+                publicacion.save()
+
+                return redirect('perfil')
+        elif 'addtag' in request.POST:
+            # is_bound es un booleano que dice si se ha modificado el formulario y sirve para evitar procesarlo (y mostrar los errores)
+            # como se dio a un boton que no modifica el formulario, no molestar el creador con advertencias falsas y no mostrar los errores lol
+            # todo: oh no como es un form aparte no se guardan los datos del form del post y se pierde todo el progreso quiero dormir
+            form.is_bound = False
+
+            datos_post = request.POST.getlist('addtag')
+            if len(datos_post) > 0:
+                tag_nuevo = Tags(contenido=datos_post[0])
+                if len(tag_nuevo.contenido) > 0:
+                    tag_nuevo.save()
+                    # form['tags'].add(tag_nuevo)
+
     else:
         form = PostForm()
 
-    return render(request, 'crearpost.html', context={'form': form, 'sobreescribir_css': True})
+    # TODO: markdown deja procesar imagenes, idealmente se deben de procesar las imagenes
+    # hit da books https://django-markdown-editor.readthedocs.io/en/latest/settings.html#image-upload-configuration
+    return render(request, 'crearpost.html', context={'form': form})
 
 
 def post(request, pk):
