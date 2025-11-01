@@ -19,36 +19,36 @@
 <h1>{{ post.titulo }}</h1>
 <div class="post-content martor-preview">
     <p>{{ post.parrafo | safe_markdown }}</p>
-    
-    {% if post.imagen.url %}
-   <img src='{{ post.imagen.url }}'/>
+
+    {% if post.imagen %}
+    <img src='{{ post.imagen.url }}'/>
     {% endif %}
 
 </div>
 
 {% if autenticado %}
-    <h3>Deja un comentario:</h3>
-    <form method="post">
-        {% csrf_token %}
-        <div>
-            {{ form.as_p }}
-        </div>
-        <button type="submit" class="btn btn-primary">Publicar</button>
-    </form>
+<h3>Deja un comentario:</h3>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        {{ form.as_p }}
+    </div>
+    <button type="submit" class="btn btn-primary">Publicar</button>
+</form>
 {% else %}
-        <p>Debes <a href="{% url 'login' %}">iniciar sesión</a> para comentar.</p>
+<p>Debes <a href="{% url 'login' %}">iniciar sesión</a> para comentar.</p>
 {% endif %}
 
 <h3>Comentarios:</h3>
 {% for comment in comments %}
-    <p>
-        El {{ comment.fecha_comentario.date }} <b>{{ comment.correo.nombre }}</b> escribió:
-    </p>
-    <p>
-        {{ comment.contenido | linebreaks }}
-    </p>
-    {% if comment.correo == usuario_actual %}
-        <a href="{% url 'eliminar' comment.pk %}">Eliminar Comentario</a>
-    {% endif %}
+<p>
+    El {{ comment.fecha_comentario.date }} <b>{{ comment.correo.nombre }}</b> escribió:
+</p>
+<p>
+    {{ comment.contenido | linebreaks }}
+</p>
+{% if comment.correo == usuario_actual %}
+<a href="{% url 'eliminar' comment.pk %}">Eliminar Comentario</a>
+{% endif %}
 {% endfor %}
 {%endblock%}
