@@ -2,11 +2,11 @@ from django.contrib import messages
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+
 from GestionPosts.forms import CommentForm
-from GestionPerfil.models import Usuarios
 from GestionPosts.forms import PostForm
-from .models import Publicaciones, Comentarios, Tags
 from miapp import utils
+from .models import Publicaciones, Comentarios, Tags
 
 
 # Create your views here.
@@ -16,11 +16,11 @@ def crearpost(request: WSGIRequest):
         return redirect('../')
 
     if request.method == 'POST':
+        # VAMOOOOOOOOO ME LEI https://docs.djangoproject.com/en/5.2/topics/http/file-uploads/
+        # ModelForm tiene un misterioso 2do parametro no borrar o si no no habran imagenes
         form = PostForm(request.POST, request.FILES)
 
         if 'publish' in request.POST:
-            # VAMOOOOOOOOO ME LEI https://docs.djangoproject.com/en/5.2/topics/http/file-uploads/
-            # ModelForm tiene un misterioso 2do parametro no borrar o si no no habran imagenes
             if form.is_valid():
                 usuario = utils.obtener_usuario_sesion(request)
                 if usuario.rango == 0:
