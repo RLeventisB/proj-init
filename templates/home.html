@@ -1,6 +1,12 @@
 {% extends "index.html" %}
 {% block titulopagina %}Safe and Sound{% endblock %}{### Titulo de la pagina  ##}
 
+{% block extracssjs %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'miapp/css/home.css' %}">
+
+{% endblock %}
+
 {%block content%}
 <h1 style="text-align: center;">Safe and Sound</h1>
 <form method="get" action="{% url 'busqueda' %}">

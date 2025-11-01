@@ -1,9 +1,19 @@
 {% block arriba %}
 <html>
 <head>
+    <!--
+    uso de esta cosa rara:
+    si quieres añadir un .css aparte pero no sobreescribir los originales, usar block extracssjs
+    si quieres sobreescribir el css predeterminado, usar block cssjs
+    -->
     {% block cssjs %}
     {% load static %}
+
     <link rel="stylesheet" href="{% static 'miapp/css/style1.css' %}">
+
+    {% block extracssjs %}
+    {% endblock %}
+
     {% endblock %}
 </head>
 <header class="navbar">
