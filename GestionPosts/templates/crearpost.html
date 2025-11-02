@@ -1,13 +1,12 @@
-<!DOCTYPE html>
 {% extends "index.html" %}
 {% block titulopagina %} Crear Post {% endblock %}
 {% load static %}
 
-{% block cssjs %}
+{% block extracssjs %}
 
-<link rel="stylesheet" href="{% static 'miapp/css/style1.css'%}">
+<link rel="stylesheet" href="{% static 'miapp/css/post.css'%}">
 
-<link href="{% static 'plugins/css/bootstrap.min.css' %}" type="text/css" media="all" rel="stylesheet"/>
+<link href="{% static 'plugins/css/bootstrap.min.css' %}" media="all" rel="stylesheet"/>
 <link href="{% static 'plugins/css/ace.min.css' %}" rel="stylesheet">
 <link href="{% static 'martor/css/martor.bootstrap.min.css' %}" rel="stylesheet">
 
@@ -23,9 +22,8 @@
 <script src="{% static 'plugins/js/theme-github.js' %}"></script>
 <script src="{% static 'plugins/js/typo.js' %}"></script>
 <script src="{% static 'plugins/js/snippets/markdown.js' %}"></script>
-<script src="{% static 'martor/js/martor.bootstrap.js' %}"></script>
+<script src="{% static 'martor/js/martor.bootstrap.min.js' %}"></script>
 
-<link rel="stylesheet" href="{% static 'miapp/css/post.css'%}">
 {% endblock %}
 
 {% block content %}
@@ -39,7 +37,17 @@
     {% csrf_token %}
 
     <div class="form-group">
-        {{ form }}
+        {% load static %}
+
+
+        {{ form.titulo }}
+        {{ form.resumen }}
+        <div>
+
+            {{ form.parrafo }}
+        </div>
+        {{ form.imagen }}
+        {{ form.tags }}
 
     </div>
 

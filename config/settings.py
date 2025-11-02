@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+import time
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -122,5 +123,13 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Martor Configuration
-MARTOR_THEME = "bootstrap"  # semantic
+MARTOR_THEME = "bootstrap"
 CSRF_COOKIE_HTTPONLY = False
+
+# no
+MARTOR_SEARCH_USERS_URL = ''
+
+MARTOR_UPLOAD_URL = '/crearpost/uploader'
+MARTOR_UPLOAD_PATH = 'imagenes/markdown/{}'.format(time.strftime("%Y/%m/%d/"))
+
+MAX_IMAGE_UPLOAD_SIZE = 10485760
