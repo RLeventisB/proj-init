@@ -1,8 +1,10 @@
 from django.contrib import messages
 from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import Model
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 
+from GestionPerfil.models import Usuarios
 from GestionPosts.forms import CommentForm
 from GestionPosts.forms import PostForm
 from miapp import utils
@@ -59,7 +61,7 @@ def crearpost(request: WSGIRequest):
 
 
 def post(request, pk):
-    post = get_object_or_404(Publicaciones, pk=pk)
+    post: Publicaciones = get_object_or_404(Publicaciones, pk=pk)
     comments = Comentarios.objects.filter(publicacion=post)
     autenticado = utils.verificar_sesion(request)
     context = {
@@ -104,6 +106,7 @@ def eliminarcomentarios(request, pk):
     if request.method == "POST":
         padre_instance_url = instance.publicacion.get_absolute_url()
         instance.delete()
+        # todo: no tenemos nada para renderizar los messages bro se muestran en el admin ya que es la unica pagina que las "escucha" lol
         messages.success(request, "Se ha eliminado tu comentario")
         return HttpResponseRedirect(padre_instance_url)
 
@@ -111,3 +114,40 @@ def eliminarcomentarios(request, pk):
         'instance': instance
     }
     return render(request, 'eliminar.html', context)
+
+
+def obtener_post(usuario: Usuarios, index: int) -> Publicaciones:
+    post = Publicaciones.objects.get(id=index)
+    if usuario.rango == 2 or post.nombre == usuario:
+        return post
+    raise AssertionError("Acceso denegado")
+
+
+def gestionposts(request: WSGIRequest):
+    if not utils.verificar_creador(request):
+        # vete de aqui >:(
+        return redirect('../')
+
+    usuario = utils.obtener_usuario_sesion(request)
+
+    if 'accion' in request.GET and 'id' in request.GET:
+        # oh no estamos en presencia de una ACCION!!!
+        try:
+            accion = request.GET.get('accion')
+            index = int(request.GET.get('id'))
+            post = obtener_post(usuario, index)
+            if accion == 'borrar':
+                post.delete()
+            if accion == 'editar':
+                # blehhhhhh
+                pass
+        finally:
+            # redirect para borrar los parametros
+            return redirect('gestionarposts')
+
+    if usuario.rango == 2:
+        publicaciones = Publicaciones.objects.all()
+    else:
+        publicaciones = Publicaciones.objects.filter(nombre=usuario).all()
+
+    return render(request, 'gestionpost.html', context={'resultados': publicaciones, 'nombre_plural': "Publicaciones", 'admin': usuario.rango == 2})

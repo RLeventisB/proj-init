@@ -1,5 +1,7 @@
+from django.core.handlers.wsgi import WSGIRequest
 from django.shortcuts import render, redirect
 
+from GestionPosts.models import Comentarios
 from miapp import utils
 from .forms import SignupForm
 from .forms import LoginForm
@@ -73,6 +75,12 @@ def formulariosperfil(request):
         if 'crear_post' in request.POST:
             return redirect('crearpost')
 
+        if 'ver_posts' in request.POST:
+            return redirect('gestionarposts')
+
+        if 'ver_comentarios' in request.POST:
+            return redirect('ver_comentarios')
+
         elif 'borrar_cuenta' in request.POST:
             try:
                 usuario.delete()
@@ -87,3 +95,37 @@ def formulariosperfil(request):
     return render(request, 'perfil.html', {
         'nameupdateform': nameupdateform,
         'es_creador': es_creador})
+
+
+def obtener_comentario(usuario: Usuarios, index: int) -> Comentarios:
+    comentario = Comentarios.objects.get(id=index)
+    if usuario.rango == 2 or comentario.correo == usuario:
+        return comentario
+    raise AssertionError("Acceso denegado")
+
+
+def gestioncomentarios(request: WSGIRequest):
+    if not utils.verificar_sesion(request):
+        # vete de aqui >:(
+        return redirect('../')
+
+    usuario = utils.obtener_usuario_sesion(request)
+
+    if 'accion' in request.GET and 'id' in request.GET:
+        # oh no estamos en presencia de una ACCION!!!
+        try:
+            accion = request.GET.get('accion')
+            index = int(request.GET.get('id'))
+            comentario = obtener_comentario(usuario, index)
+            if accion == 'borrar':
+                comentario.delete()
+            if accion == 'editar':
+                # blehhhhhh
+                pass
+        finally:
+            # redirect para borrar los parametros
+            return redirect('ver_comentarios')
+
+    comentarios = Comentarios.objects.filter(correo=usuario).all()
+
+    return render(request, 'gestioncomentario.html', context={'resultados': comentarios, 'nombre_plural': "Comentarios", 'admin': usuario.rango == 2})

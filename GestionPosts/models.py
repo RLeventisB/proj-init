@@ -26,7 +26,7 @@ class Publicaciones(models.Model):
 
     def __str__(self):
         return self.titulo
-    
+
     def get_absolute_url(self):
         return reverse('post', kwargs={'pk': self.pk})
 

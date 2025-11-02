@@ -1,0 +1,18 @@
+{% extends "gestionobjeto.html" %}
+{% block titulopagina %}Comentarios{% endblock %}
+{% block texto_js %}$(this).find('.resultado-interno .datos h3').text(){% endblock %}
+
+{% block representacion %}
+<a href='../post/{{res.publicacion.id}}'>
+    <h2>En {{res.publicacion}}</h2>
+    <h3>{{res.contenido}}</h3>
+    <p><em>{{res.fecha_comentario}}</em></p>
+</a>
+
+{% endblock %}
+
+{% block acciones %}
+<a href='?accion=borrar&id={{res.id}}'>
+    <button>MUERE</button>
+</a>
+{% endblock %}

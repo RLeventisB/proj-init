@@ -6,9 +6,10 @@
 <link rel="stylesheet" href="{% static 'miapp/css/login.css'%}">
 <h1>Bienvenid@ {{ request.session.usuario }} </h1>
 
-<h1>Actualiza tu información</h1>
 
 <form method="post">
+
+    <h1>Actualiza tu información</h1>
 
     {% csrf_token %}
     {{ nameupdateform.as_p }}
@@ -16,25 +17,27 @@
     <button type="submit" name="solicitar_cambio_usuario">Actualizar Información</button>
 </form>
 
-{% if es_creador %}
-<h1>Publicar</h1>
-
 <form method="post">
 
     {% csrf_token %}
+
+    {% if es_creador %}
+
+    <h1>Publicar</h1>
 
     <button type="submit" name="crear_post">Crear post</button>
 
-</form>
-{% endif %}
+    <h1>Gestionar</h1>
 
-<h1>Borrar Cuenta</h1>
+    <button type="submit" name="ver_posts">Gestionar posts</button>
+    {% endif %}
 
-<form method="post">
+    <button type="submit" name="ver_comentarios">Gestionar comentarios</button>
 
-    {% csrf_token %}
+    <h1>Borrar Cuenta</h1>
 
     <button type="submit" name="borrar_cuenta">Borrar Cuenta</button>
 </form>
+
 
 {% endblock %}

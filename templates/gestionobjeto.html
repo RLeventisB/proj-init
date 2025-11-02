@@ -1,0 +1,74 @@
+{% extends "index.html" %}
+
+{% block extracssjs %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'miapp/css/gestionobjeto.css' %}">
+
+<script src="{% static 'plugins/js/jquery.min.js' %}"></script>
+<script>
+    $(document).ready(function(){
+    $("#filter").keyup(function(){
+        // nooo tuve que usar javascript
+        // codigo de https://stackoverflow.com/a/44736154
+        // jquery es usado para las. querys. (tambien conocido como los '.resultados div' lo cual busca las divs que tienen clase resultados en el hijo o el padre, esos terminos son preocupantes)
+        // ALSO! esto es reutilizado para los comentarios pq soy flojo.
+
+        // Retrieve the input field text and reset the count to zero
+
+        var filter = $(this).val().trim(), count = 0;
+
+        // Loop through the comment list
+        $('.resultados div').filter('.resultado').each(function(){
+
+            // If the list item does not contain the text phrase fade it out
+            let texto = {% block texto_js %}""{% endblock %};
+            if (filter.length != 0 && !texto.includes(filter)) {
+                // cosa rara sacada de https://stackoverflow.com/a/48398455 y https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList/toggle
+                this.classList.toggle("resultado-escondido", true);
+
+            // Show the list item if the phrase matches and increase the count by 1
+            } else {
+                this.classList.toggle("resultado-escondido", false);
+                count++;
+            }
+
+        });
+
+    });
+});
+</script>
+{% endblock %}
+
+{%block content%}
+<h1 style="text-align: center;">Gestionar {{nombre_plural}}</h1>
+<form>
+    <input type="search" id="filter" placeholder="Buscar {{nombre_plural}}...">
+
+</form>
+
+<div class="resultados">
+    {% for res in resultados %}
+    <div class="resultado">
+        <div class="resultado-interno">
+            <div class="datos">
+                {% block representacion %}
+                {% endblock %}
+            </div>
+
+            <div class="botones">
+                {% block acciones %}
+                <a href='?accion=borrar&id={{res.id}}'>
+                    <button>MUERE</button>
+                </a>
+
+
+                <button>editar o algo (que paja)</button>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No hay {{nombre_plural}}.</p>
+    {% endfor %}
+</div>
+{%endblock %}

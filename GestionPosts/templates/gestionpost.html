@@ -1,0 +1,14 @@
+{% extends "gestionobjeto.html" %}
+{% block titulopagina %}Publicaciones{% endblock %}
+{% block texto_js %}$(this).find('.resultado-interno .datos h2').text(){% endblock %}
+
+{% block representacion %}
+<a href='../post/{{res.id}}'>
+    <h2>{{res.titulo}}</h2>
+    <p><em>{{res.fecha_creacion}}</em></p>
+    {% if admin %}
+    <p><em>Creado por: {{res.nombre}}</em></p>
+    {% endif %}
+</a>
+
+{% endblock %}

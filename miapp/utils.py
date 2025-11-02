@@ -10,6 +10,10 @@ def verificar_creador(request) -> bool:
     return 'usuario_pk' in request.session and obtener_usuario_sesion(request).rango in [1, 2]
 
 
+def verificar_admin(request) -> bool:
+    return 'usuario_pk' in request.session and obtener_usuario_sesion(request).rango == 2
+
+
 def verificar_sesion(request) -> bool:
     return 'usuario_pk' in request.session
 
@@ -20,6 +24,6 @@ def asignar_usuario(request, usuario) -> None:
         del request.session['usuario']
 
         return
-    
+
     request.session['usuario_pk'] = usuario.correo, usuario.nombre
     request.session['usuario'] = usuario.nombre
