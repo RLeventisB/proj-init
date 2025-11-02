@@ -106,7 +106,6 @@ def eliminarcomentarios(request, pk):
     if request.method == "POST":
         padre_instance_url = instance.publicacion.get_absolute_url()
         instance.delete()
-        # todo: no tenemos nada para renderizar los messages bro se muestran en el admin ya que es la unica pagina que las "escucha" lol
         messages.success(request, "Se ha eliminado tu comentario")
         return HttpResponseRedirect(padre_instance_url)
 
