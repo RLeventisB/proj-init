@@ -21,7 +21,7 @@ def signup(request):
 
             utils.asignar_usuario(request, usuario)
 
-            return redirect('login')
+            return redirect('home')
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})
