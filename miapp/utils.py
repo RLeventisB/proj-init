@@ -1,3 +1,5 @@
+from django.contrib.auth import hashers
+
 from GestionPerfil.models import Usuarios
 
 
@@ -27,3 +29,9 @@ def asignar_usuario(request, usuario) -> None:
 
     request.session['usuario_pk'] = usuario.correo, usuario.nombre
     request.session['usuario'] = usuario.nombre
+
+
+# gracias django por ser open source
+# basado en AbstractBaseUser.set_password el cual llama hashers.make_password
+def encriptar_contraseña(contraseña: str):
+    return hashers.make_password(contraseña)

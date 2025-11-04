@@ -15,11 +15,11 @@ def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
+            form.encriptar_contraseña()
             form.save()
             usuario = Usuarios.objects.get(correo=form.instance.correo)
 
-            request.session['usuario_pk'] = usuario.correo, usuario.nombre
-            request.session['usuario'] = usuario.nombre
+            utils.asignar_usuario(request, usuario)
 
             return redirect('login')
     else:
@@ -30,12 +30,11 @@ def signup(request):
 def login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
-        if form.is_valid() and Usuarios.objects.filter(correo=form.cleaned_data['correo'],
-                                                       contraseña=form.cleaned_data['contraseña']).exists():
+        if form.is_valid() and Usuarios.objects.filter(correo=form.cleaned_data['correo']).exists():
             correo = form.cleaned_data['correo']
             contraseña = form.cleaned_data['contraseña']
             usuario = Usuarios.objects.get(correo=correo)
-            if usuario.contraseña == contraseña:
+            if usuario.contraseña_valida(contraseña):
                 utils.asignar_usuario(request, usuario)
 
                 return redirect('home')
