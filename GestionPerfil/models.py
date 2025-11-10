@@ -18,6 +18,9 @@ class Usuarios(models.Model):
     def __str__(self):
         return self.nombre
 
+    # gracias django por ser open source
+    # basado en AbstractBaseUser.set_password el cual llama hashers.make_password
+    # asignar contraseña no debe de ser usado afuera >:(
     def contraseña_valida(self, contraseña):
         return hashers.check_password(contraseña, self.contraseña, self.asignar_contraseña)
 
