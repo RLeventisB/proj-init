@@ -1,14 +1,22 @@
 {% extends "index.html" %}
+{%block extracssjs%}
+{%load static%}
+<link rel="stylesheet" href="{% static 'miapp/css/busqueda.css'%}">
+{%endblock%}
 {%block content%}
 <form method="get" action="{% url 'busqueda' %}">
     <input type="search" name="q" placeholder="Busca publicaciones...">
     <button type="submit">Buscar</button>
 </form>
-
-{% for publicacion in publicaciones %}
+<div class="reusltados">
+    {% for publicacion in publicaciones %}
+    <div class="resultado">
     <h2><a href="{% url 'post' publicacion.pk %}">{{ publicacion.titulo }}</a></h2>
-    <p>&emsp;&emsp;Abstract: {{ publicacion.resumen }}</p>
-{% empty %}
+    <p>Abstract: {{ publicacion.resumen }}</p>
+    </div>
+    <h1>{{publicacion.autor}}</h1>
+    {% empty %}
     No se encontraron resultados.
 {% endfor %}
+</div>
 {%endblock%}
