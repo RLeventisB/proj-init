@@ -18,7 +18,7 @@
 
 <h1>{{ post.titulo }}</h1>
 <div class="post-content martor-preview">
-    <p>{{ post.parrafo | safe_markdown }}</p>
+    {{ post.parrafo | safe_markdown }}
 
     {% if post.imagen %}
     <img src='{{ post.imagen.url }}'/>

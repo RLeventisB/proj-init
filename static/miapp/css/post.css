@@ -18,9 +18,15 @@ form {
 }
 
 h1 {
-    text-align: center;
+    text-align: left;
     margin-top: 20px;
     font-size: 4Sem;
+    background-color: #68417f;
+    padding: 30px;
+    margin: 25px auto;
+    width: 200px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 .martor-preview.tab-pane p {
@@ -29,6 +35,12 @@ h1 {
 
 p {
     font-size: 1em;
+    background-color: #68417f;
+    padding: 30px;
+    margin: 25px auto;
+    width: 200px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 input[type="text"],
@@ -75,4 +87,14 @@ label {
     background: linear-gradient(to right, #c66aab, #c66aab);
     font-family: 'Segoe UI', sans-serif;
     color: white;
+}
+
+img {
+    width: 400px;  /* tamaño moderado */
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 10px auto;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }

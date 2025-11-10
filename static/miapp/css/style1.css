@@ -9,6 +9,9 @@
 
 .logo img {
     border-radius: 50%;
+    width: 50px; /* ← tamaño fijo solo para el logo */
+    height: 50px;
+    object-fit: cover;
 }
 
 .nav-links a {
@@ -16,7 +19,7 @@
     text-decoration: none;
     margin-left: 20px;
     font-weight: bold;
-    transition: color 0.2s;
+    transition: transform 0.2s, text-decoration 0.2s;
 }
 
 .nav-links a:hover {
@@ -40,4 +43,24 @@ form {
     width: 500px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    text-align: center;
+}
+
+.publicacion img {
+    width: 250px;  /* tamaño moderado */
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 10px auto;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.publicacion {
+    background-color: #68417f;
+    padding: 20px;
+    margin: 20px auto;
+    width: 60%;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }

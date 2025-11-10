@@ -1,18 +1,17 @@
 footer {
-  text-align: left;
-  padding: 5px;
-  background-color: #f2cfda;
-  color: #68417f;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+    background-color: #f2cfda;
+    color: #68417f;
+    text-align: left;
+    padding: 12px 20px;
+    width: 100%;
+    position: relative; /* antes era fixed */
 }
 
-form{
-    background-color: #68417f;
-    padding: 30px;
-    margin: 25px auto;
-    width: 500px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+footer a {
+    color: #68417f;
+    text-decoration: underline;
+}
+
+footer a:hover {
+    text-decoration: none;
 }

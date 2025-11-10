@@ -1,26 +1,17 @@
 {% block arriba %}
 <html>
 <head>
-    <!--
-    uso de esta cosa rara:
-    si quieres añadir un .css aparte pero no sobreescribir los originales, usar block extracssjs
-    si quieres sobreescribir el css predeterminado, usar block cssjs
-
-    tener en cuenta que el orden de implementacion de css si importa!! por lo tanto lo que modifica extracss sobreescribira style1.css
-    -->
     {% block cssjs %}
     {% load static %}
-
     <link rel="stylesheet" href="{% static 'miapp/css/style1.css' %}">
-
-    {% block extracssjs %}
-    {% endblock %}
-
+    {% block extracssjs %}{% endblock %}
     {% endblock %}
 </head>
+
+<body>
 <header class="navbar">
     <div class="logo">
-        <img src="https://github.com/RLeventisB/proj-init/blob/main/media/logo.png?raw=true" alt="Logo" width="50">
+        <img src="https://github.com/RLeventisB/proj-init/blob/main/media/logo.png?raw=true" alt="Logo">
     </div>
     <nav class="nav-links">
         <a href="{% url 'home' %}" class="button">Ir a Home</a>
@@ -33,11 +24,9 @@
         {% endif %}
     </nav>
 </header>
-{% endblock %}
-<title>{% block titulopagina %}Mi Sitio Web{% endblock %}</title>
 
-{% block content %}
-{% endblock %}
-
-{% block footer%}
+{% block content %}{% endblock %}
+{% block footer %}{% endblock %}
+</body>
+</html>
 {% endblock %}

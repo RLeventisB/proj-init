@@ -1,14 +1,14 @@
 {% extends "index.html" %}
-{% block titulopagina %}Safe and Sound{% endblock %}{### Titulo de la pagina  ##}
+{% block titulopagina %}Safe and Sound{% endblock %}
 
 {% block extracssjs %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'miapp/css/home.css' %}">
-
 {% endblock %}
 
-{%block content%}
+{% block content %}
 <h1 style="text-align: center;">Safe and Sound</h1>
+
 <form method="get" action="{% url 'busqueda' %}">
     <input type="search" name="q" placeholder="Buscar publicaciones...">
     <button type="submit">Buscar</button>
@@ -17,27 +17,26 @@
 <div class="publicaciones">
     {% for pub in publicaciones %}
     <div class="publicacion">
-        <h2>{{pub.titulo}}</h2>
-        <p><strong>Autor:</strong> {{pub.nombre}}</p>
+        <h2>{{ pub.titulo }}</h2>
+        <p><strong>Autor:</strong> {{ pub.nombre }}</p>
+        <p><em>{{ pub.fecha_creacion }}</em></p>
         {% if pub.imagen %}
-        <img src='{{ pub.imagen.url }}' alt="Imagen de {{pub.titulo}}" width="200">
-
+        <img src="{{ pub.imagen.url }}" alt="Imagen de {{ pub.titulo }}">
         {% endif %}
-        <p><em>{{pub.fecha_creacion}}</em></p>
     </div>
     {% empty %}
     <p>No hay publicaciones disponibles.</p>
     {% endfor %}
 </div>
-{%endblock %}
+{% endblock %}
 
-{%block footer%}
+{% block footer %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'miapp/css/footerhome.css' %}">
 <footer>
     <p><strong>
         &copy; 2025 Safe and Sound. Todos los derechos reservados. Contacto: safeandsound.contacto@gmail.com
     </strong></p>
-    <a href="https://forms.gle/MtMX5k4bFdfaLLPN6">Conviertete en un creador</a><br><br>
+    <a href="https://forms.gle/MtMX5k4bFdfaLLPN6">Conviértete en un creador</a><br><br>
 </footer>
-{%endblock%}
+{% endblock %}
