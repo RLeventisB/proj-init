@@ -1,15 +1,21 @@
-{% block main%}
-<div class="div_eliminar">
+{% extends "index.html" %}
+ 
+{% block content%}
+{% load static %}
+<link rel="stylesheet" href="{% static 'miapp/css/eliminarcomentario.css'%}">
+<div class="eliminar">
     <h1>
         Confirmar Acción
     </h1>
     <form method="POST">
         {% csrf_token %}
-        <p>
+        <h2>
             ¿Estas segur@ de eliminar: {{instance.contenido}}?
-        </p>
+        </h2>
         <button type="submit">Confirmar</button>
-        <a href="{{instance.publicacion.get_absolute_url}}">Cancelar</a>
+        <button>
+            <a href="{{instance.publicacion.get_absolute_url}}">Cancelar</a>
+        </button>
 
     </form>
 </div>
