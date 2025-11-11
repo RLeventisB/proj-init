@@ -52,11 +52,12 @@
 
 <h3>Comentarios:</h3>
 {% for comment in comments %}
-<p>El {{ comment.fecha_comentario.date }} <b>{{ comment.correo.nombre }}</b> escribió:</p><!-- lo mismo-->
-{{ comment.contenido | linebreaks }}<!-- El linebraks ya tiene sus propios <p></p>-->
-
-{% if comment.correo == usuario_actual %}
-<a href="{% url 'eliminar' comment.pk %}">Eliminar Comentario</a>
-{% endif %}
+<div class="comentario">
+    <p>El {{ comment.fecha_comentario.date }} <b>{{ comment.correo.nombre }}</b> escribió:</p><!-- lo mismo-->
+    {{ comment.contenido | linebreaks }}<!-- El linebraks ya tiene sus propios <p></p>-->
+    {% if comment.correo == usuario_actual %}
+    <a href="{% url 'eliminar' comment.pk %}">Eliminar Comentario</a>
+    {% endif %}
+</div>
 {% endfor %}
 {%endblock%}
