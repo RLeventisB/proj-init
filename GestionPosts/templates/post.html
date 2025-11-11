@@ -15,8 +15,11 @@
 {% endblock %}
 {%block content%}
 {% load martortags %}
+<nav class="post-header">
+    <h1>{{ post.titulo }}</h1>
+    <h4>Autor: {{post.nombre}}</h4>
+</nav>
 
-<h1>{{ post.titulo }}</h1>
 <div class="post-content martor-preview">
     {{ post.parrafo | safe_markdown }}
 
@@ -49,12 +52,9 @@
 
 <h3>Comentarios:</h3>
 {% for comment in comments %}
-<p>
-    El {{ comment.fecha_comentario.date }} <b>{{ comment.correo.nombre }}</b> escribió:
-</p>
-<p>
-    {{ comment.contenido | linebreaks }}
-</p>
+<p>El {{ comment.fecha_comentario.date }} <b>{{ comment.correo.nombre }}</b> escribió:</p><!-- lo mismo-->
+{{ comment.contenido | linebreaks }}<!-- El linebraks ya tiene sus propios <p></p>-->
+
 {% if comment.correo == usuario_actual %}
 <a href="{% url 'eliminar' comment.pk %}">Eliminar Comentario</a>
 {% endif %}

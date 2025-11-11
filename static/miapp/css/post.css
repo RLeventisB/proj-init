@@ -17,28 +17,31 @@ form {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-h1 {
-    text-align: left;
-    margin-top: 20px;
-    font-size: 4Sem;
-    background-color: #68417f;
-    padding: 30px;
-    margin: 25px auto;
-    width: 200px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+nav.post-header h1 {
+    background-color: #f2cfda;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-radius:20px;
+    height: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    color: #68417f;
+    padding: 10px;
+    margin-top: 10px;
 }
 
-.martor-preview.tab-pane p {
+.post-content.martor-preview {
+    display: flex;
     color: #000000;
 }
 
-p {
+.post-content.martor-preview p {
     font-size: 1em;
-    background-color: #68417f;
+    background-color: #f2cfda;
     padding: 30px;
-    margin: 25px auto;
-    width: 200px;
+    max-width: 1000px;
+    margin:  auto;
+    width: auto;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
@@ -94,7 +97,27 @@ img {
     height: auto;
     border-radius: 10px;
     display: block;
+    max-height: 100%;
     margin: 10px auto;
     object-fit: cover;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+nav.post-header{
+    display: flex;
+}
+
+nav.post-header h4{
+    background-color: #f2cfda;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-radius:20px;
+    height: 80%;
+    margin:auto;
+    color: #68417f;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+h3{
+    text-align: center;
 }
