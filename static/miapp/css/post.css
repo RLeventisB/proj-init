@@ -34,14 +34,16 @@ nav.post-header h1 {
 .martor-preview {
     color: #000000;
 }
-
-.post-content.martor-preview  {
+.post-content  {
+    display: flex
+}
+.post-content .martor-preview  {
     font-size: 1em;
     background-color: #f2cfda;
     padding: 30px;
     max-width: 1000px;
-    margin:  auto;
-    width: auto;
+    margin: 10px auto;
+    width: 70%;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
@@ -94,9 +96,9 @@ label {
 
 .post-content img  { /* .post-content para no afectar la imagen de la navbar */
     width: 400px;  /* tamaño moderado */
-    height: auto;
+    height: 400px;
     border-radius: 10px;
-    display: block;
+    display: flex;
     max-height: 100%;
     margin: 10px auto;
     object-fit: cover;

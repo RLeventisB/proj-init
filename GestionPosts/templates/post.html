@@ -20,9 +20,16 @@
     <h4>Autor: {{post.nombre}}</h4>
 </nav>
 
-<div class="post-content martor-preview" id="preview">
-    {{ post.parrafo | safe_markdown }}
+<div class="post-content" id="preview">
+    <div class="martor-preview">
+        {{ post.parrafo | safe_markdown }}
+        <p>Tags:
+            {% for tag in post.tags.all %}
+            {{tag}}
+            {% endfor %}
+        </p>
 
+    </div>
     {% if post.imagen %}
     <img src='{{ post.imagen.url }}'/>
     {% endif %}
