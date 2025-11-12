@@ -17,26 +17,32 @@
 <div class="publicaciones">
     {% for pub in publicaciones %}
     <div class="publicacion">
-        <h2>{{ pub.titulo }}</h2>
-        <p><strong>Autor:</strong> {{ pub.nombre }}</p>
-        <p><em>{{ pub.fecha_creacion }}</em></p>
-        {% if pub.imagen %}
-        <img src="{{ pub.imagen.url }}" alt="Imagen de {{ pub.titulo }}">
-        {% endif %}
+        <a href="post/{{pub.id}}">
+            <h2>{{ pub.titulo }}</h2>
+            <p><strong>Autor:</strong> {{ pub.nombre }}</p>
+            <p><em>{{ pub.fecha_creacion }}</em></p>
+            {% if pub.imagen %}
+            <img src="{{ pub.imagen.url }}" alt="Imagen de {{ pub.titulo }}">
+            {% endif %}
+        </a>
     </div>
     {% empty %}
     <p>No hay publicaciones disponibles.</p>
     {% endfor %}
 </div>
+<!-- vayan, mis pequeños brasiles -->
+<br>
+<br>
+<br>
+<br>
+<br>
 {% endblock %}
 
 {% block footer %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'miapp/css/footerhome.css' %}">
-<footer>
-    <p><strong>
-        &copy; 2025 Safe and Sound. Todos los derechos reservados. Contacto: safeandsound.contacto@gmail.com
-    </strong></p>
-    <a href="https://forms.gle/MtMX5k4bFdfaLLPN6">Conviértete en un creador</a><br><br>
-</footer>
+<p><strong>
+    &copy; 2025 Safe and Sound. Todos los derechos reservados. Contacto: safeandsound.contacto@gmail.com
+</strong></p>
+<a href="https://forms.gle/MtMX5k4bFdfaLLPN6">Conviértete en un creador</a><br><br>
 {% endblock %}

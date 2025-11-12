@@ -31,3 +31,11 @@ input{
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
+.publicacion a {
+    color: white;
+}
+
+.publicacion a:hover {
+    color: #2bfbdf;
+}

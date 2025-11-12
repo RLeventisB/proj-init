@@ -4,7 +4,8 @@ footer {
     text-align: left;
     padding: 12px 20px;
     width: 100%;
-    position: relative; /* antes era fixed */
+    bottom: 0;
+    position: fixed;
 }
 
 footer a {
