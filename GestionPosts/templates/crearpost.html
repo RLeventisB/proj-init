@@ -43,7 +43,6 @@
         {{ form.titulo }}
         {{ form.resumen }}
         <div>
-
             {{ form.parrafo }}
         </div>
         {{ form.imagen }}
@@ -53,13 +52,62 @@
 
     <button type="submit" name="publish">Publicar</button>
 </form>
-<form class="form" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
 
-    <input type="text" name="addtag" placeholder="Añadir tag...">
+<div class="generador_tags">
+    <input type="text" id="addtagtext" placeholder="Añadir tag...">
 
-    <button type="submit" name="addtag">Añadir</button>
-</form>
+    <button id="addtagbutton">Añadir</button>
+
+    <script>
+        var btn = document.getElementById("addtagbutton");
+        btn.addEventListener("click", addTag);
+
+        function addTag()
+        {
+            var input = document.getElementById("addtagtext");
+            if (input == null || input.value.length == 0)
+                return;
+
+            // copiado de https://www.freecodecamp.org/news/how-to-send-http-requests-using-javascript/
+            // AAAAAAAAAAA PREDICATES AAAAAAAAAAAA
+            // esto le hace una request al server, el server dice si el tag esta aok (202) o ya existe (200)
+            // en el caso de que esta ok, recibe un contenido y id lo cual sirve para añadir de forma programatica el tag a la lista esa
+
+
+            fetch("/crearpost?tag=" + input.value)
+                .then((response) => {
+                    // If the response is not 2xx, throw an error
+                    if (!response.ok) {
+                      throw new Error("Network response was not ok");
+                    }
+
+                    // If the response is 200 OK, return the response in JSON format.
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data.status == 202)
+                    {
+                        input.value = "";
+
+                        var tags = document.getElementById('id_tags');
+                        var n = tags.children.length;
+                        const div = document.createElement('div');
+
+                        div.innerHTML = `
+                            <label for=${"id_tags_" + n}>
+                                <input type="checkbox" name="tags" value=${data.id} id=${"id_tags_" + n}/> ${data.contenido}
+                            </label>
+                        `;
+
+                        tags.appendChild(div);
+
+                    }
+                })
+                .catch((error) => console.error("Fetch error:", error)); // In case of an error, it will be captured and logged.
+
+        }
+    </script>
+</div>
 
 {% endblock %}
 

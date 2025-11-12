@@ -92,7 +92,7 @@ label {
     color: white;
 }
 
-.post-content img  {
+.post-content img  { /* .post-content para no afectar la imagen de la navbar */
     width: 400px;  /* tamaño moderado */
     height: auto;
     border-radius: 10px;
@@ -125,7 +125,7 @@ nav.post-header{
     display: flex;
 }
 
-nav.post-header h4{
+nav.post-header h4 {
     background-color: #f2cfda;
     padding-bottom: 10px;
     padding-top: 10px;
@@ -136,6 +136,36 @@ nav.post-header h4{
     padding-left: 10px;
     padding-right: 10px;
 }
-h3{
+
+h3 {
+    text-align: center;
+}
+
+#id_tags div {
+    display: inline-block;
+    margin: 10px
+}
+
+button {
+    width: 100%;
+    margin: 10px;
+    padding: 12px;
+    background-color: #f2cfda;
+    border: none;
+    border-radius: 10px;
+    color: #68417f;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.generador_tags {
+    background-color: #68417f;
+    padding: 30px;
+    margin: 25px auto;
+    width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     text-align: center;
 }

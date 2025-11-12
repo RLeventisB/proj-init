@@ -20,6 +20,31 @@ from .models import Publicaciones, Comentarios, Tags
 
 
 # Create your views here.
+def añadirtag(request: WSGIRequest):
+    # view para cuando le den al boton de añadir tags
+    # si el tag tiene un tamaño mayor a 0, y no existe uno en minuscula, decimos tag aceptado!!! (202) si no solo ok :)
+
+    if 'tag' in request.GET:
+        tag_a_añadir = request.GET['tag']
+        if len(tag_a_añadir) > 0:
+            contenido_tag_nuevo = tag_a_añadir.lower()
+            if not Tags.objects.filter(contenido=contenido_tag_nuevo).exists():
+                tag_nuevo = Tags(contenido=contenido_tag_nuevo)
+                tag_nuevo.save()
+
+                data = json.dumps({
+                    'id': tag_nuevo.id,  # esto se usa en el html,,
+                    'contenido': contenido_tag_nuevo,
+                    'status': 202,  # 202 significa lo aceptamos!!!
+                })
+                return HttpResponse(data, content_type='application/json')
+
+    data = json.dumps({
+        'status': 200,
+    })
+    return HttpResponse(data, content_type='application/json')
+
+
 def crearpost(request: WSGIRequest):
     if not utils.verificar_creador(request):
         # vete de aqui >:(
@@ -46,25 +71,12 @@ def crearpost(request: WSGIRequest):
                 publicacion.save()
 
                 return redirect('perfil')
-        elif 'addtag' in request.POST:
-            # is_bound es un booleano que dice si se ha modificado el formulario y sirve para evitar procesarlo (y mostrar los errores)
-            # como se dio a un boton que no modifica el formulario, no molestar el creador con advertencias falsas y no mostrar los errores lol
-            # todo: oh no como es un form aparte no se guardan los datos del form del post y se pierde todo el progreso quiero dormir
-            form.is_bound = False
-
-            datos_post = request.POST.getlist('addtag')
-            if len(datos_post) > 0:
-                contenido_tag_nuevo = datos_post[0].lower()
-                if not Tags.objects.filter(contenido=contenido_tag_nuevo).exists() and len(contenido_tag_nuevo) > 0:
-                    tag_nuevo = Tags(contenido=contenido_tag_nuevo)
-                    tag_nuevo.save()
-                    # form['tags'].add(tag_nuevo)
-
     else:
+        if 'tag' in request.GET:
+            return añadirtag(request)
+
         form = PostForm()
 
-    # TODO: markdown deja procesar imagenes, idealmente se deben de procesar las imagenes
-    # hit da books https://django-markdown-editor.readthedocs.io/en/latest/settings.html#image-upload-configuration
     return render(request, 'crearpost.html', context={'form': form})
 
 
@@ -157,7 +169,8 @@ def gestionposts(request: WSGIRequest):
     else:
         publicaciones = Publicaciones.objects.filter(nombre=usuario).all()
 
-    return render(request, 'gestionpost.html', context={'resultados': publicaciones, 'nombre_plural': "Publicaciones", 'admin': usuario.rango == 2})
+    return render(request, 'gestionpost.html',
+                  context={'resultados': publicaciones, 'nombre_plural': "Publicaciones", 'admin': usuario.rango == 2})
 
 
 def subirimagen(request: WSGIRequest):
