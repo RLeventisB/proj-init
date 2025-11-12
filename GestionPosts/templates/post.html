@@ -20,7 +20,7 @@
     <h4>Autor: {{post.nombre}}</h4>
 </nav>
 
-<div class="post-content martor-preview">
+<div class="post-content martor-preview" id="preview">
     {{ post.parrafo | safe_markdown }}
 
     {% if post.imagen %}
