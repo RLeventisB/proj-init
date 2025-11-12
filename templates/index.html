@@ -15,11 +15,13 @@
     {% block extracssjs %}
     {% endblock %}
     {% endblock %}
+
+    <link rel="icon" href="{% static 'miapp/media/logo.png' %}">
 </head>
 
 <header class="navbar">
     <div class="logo">
-        <img src="https://github.com/RLeventisB/proj-init/blob/main/media/logo.png?raw=true" alt="Logo">
+        <img src="{% static 'miapp/media/logo.png' %}" alt="Logo">
     </div>
     <nav class="nav-links">
         <a href="{% url 'home' %}" class="button">Ir a Home</a>

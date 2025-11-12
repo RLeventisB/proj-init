@@ -92,7 +92,7 @@ label {
     color: white;
 }
 
-img {
+.post-content img  {
     width: 400px;  /* tamaño moderado */
     height: auto;
     border-radius: 10px;
