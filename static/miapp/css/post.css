@@ -96,7 +96,7 @@ label {
 
 .post-content img  { /* .post-content para no afectar la imagen de la navbar */
     width: 400px;  /* tamaño moderado */
-    height: 400px;
+    height: auto;
     border-radius: 10px;
     display: flex;
     max-height: 100%;
