@@ -117,7 +117,7 @@ def gestioncomentarios(request: WSGIRequest):
             index = int(request.GET.get('id'))
             comentario = obtener_comentario(usuario, index)
             if accion == 'borrar':
-                comentario.delete()
+                utils.borrar_comentario(comentario)
             if accion == 'editar':
                 # blehhhhhh
                 pass

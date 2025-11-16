@@ -125,7 +125,7 @@ def eliminarcomentarios(request, pk):
 
     if request.method == "POST":
         padre_instance_url = instance.publicacion.get_absolute_url()
-        instance.delete()
+        utils.borrar_comentario(instance)
         messages.success(request, "Se ha eliminado tu comentario")
         return HttpResponseRedirect(padre_instance_url)
 

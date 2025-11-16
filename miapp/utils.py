@@ -1,6 +1,8 @@
 from django.contrib.auth import hashers
 
 from GestionPerfil.models import Usuarios
+from GestionPosts.models import Comentarios
+from GestionPosts.models import ComentarioBorrado
 
 
 # omg tipos especificados??? en mi python???? es mas probable de lo que crees.
@@ -35,3 +37,9 @@ def asignar_usuario(request, usuario) -> None:
 # basado en AbstractBaseUser.set_password el cual llama hashers.make_password
 def encriptar_contraseña(contraseña: str):
     return hashers.make_password(contraseña)
+
+
+def borrar_comentario(comentario: Comentarios):
+    registro = ComentarioBorrado(correo=comentario.correo, contenido=comentario.contenido)
+    registro.save()
+    comentario.delete()

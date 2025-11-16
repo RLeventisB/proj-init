@@ -39,3 +39,10 @@ class Comentarios(models.Model):
 
     def __str__(self):
         return f'Comentario by {self.correo} on {self.publicacion}'
+
+class ComentarioBorrado(models.Model):
+    correo = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
+    contenido = models.TextField()
+
+    def __str__(self):
+        return f'Comentario borrado por {self.correo}: {self.contenido}'
